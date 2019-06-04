@@ -1,8 +1,9 @@
+# frozen_string_literal: true
+
 require_relative 'board'
 require_relative 'presenter'
 
 class Runner
-
     def self.play
         new.play
     end
@@ -12,7 +13,7 @@ class Runner
     end
 
     def play
-        play_next_move until board.is_won?
+        play_next_move until board.won?
         Presenter.congratulate_winner(board)
     end
 
@@ -21,12 +22,10 @@ class Runner
     attr_reader :board
 
     def play_position(number, player)
-        begin
-            board.make_play(number.to_i, player)
-        rescue RuntimeError => e
-            puts e.message
-            play_next_move
-        end
+        board.make_play(number.to_i, player)
+    rescue RuntimeError => e
+        puts e.message
+        play_next_move
     end
 
     def play_next_move

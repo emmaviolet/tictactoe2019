@@ -1,0 +1,13 @@
+AllCops:
+  Exclude:
+    - 'spec/spec_helper.rb'
+Layout/IndentationWidth:
+  Width: 4
+Lint/AmbiguousBlockAssociation:
+  Exclude:
+    - 'spec/*'
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/*'
+Style/Documentation:
+  Enabled: false

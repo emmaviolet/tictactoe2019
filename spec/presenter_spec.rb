@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative '../app/presenter'
 
 RSpec.describe Presenter do
@@ -12,7 +14,7 @@ RSpec.describe Presenter do
 
     describe '.request_next_move' do
         let(:subject) { Presenter.request_next_move(board) }
-        
+
         it 'prints the expected to STDOUT' do
             expected_output = [
                 'Player 2, pick a play:',
@@ -35,7 +37,7 @@ RSpec.describe Presenter do
     end
 
     describe '.congratulate_winner' do
-        before do 
+        before do
             board.make_play(3, player_2)
             board.make_play(1, player_1)
             board.make_play(4, player_2)

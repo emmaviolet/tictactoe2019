@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative '../app/runner'
 
 RSpec.describe Runner do
@@ -17,8 +19,10 @@ RSpec.describe Runner do
     before(:each) do
         allow(runner).to receive(:gets).and_return('1', '2', '4', '3', '7')
 
-        allow(board).to receive(:current_player).and_return(player_1, player_2, player_1, player_2, player_1)
-        allow(board).to receive(:is_won?).and_return(false, false, false, false, false, true)
+        allow(board).to receive(:current_player)
+            .and_return(player_1, player_2, player_1, player_2, player_1)
+        allow(board).to receive(:won?)
+            .and_return(false, false, false, false, false, true)
         allow(board).to receive(:make_play)
     end
 
