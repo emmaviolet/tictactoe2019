@@ -12,19 +12,21 @@ class Runner
     end
 
     def play
-        play_next_move until @board.is_won?
-        Presenter.congratulate_winner(@board)
+        play_next_move until board.is_won?
+        Presenter.congratulate_winner(board)
     end
 
     private
 
+    attr_reader :board
+
     def update_position(number, player)
-        @board.make_play(number.to_i, player)
+        board.make_play(number.to_i, player)
     end
 
     def play_next_move
-        Presenter.request_next_move(@board)
+        Presenter.request_next_move(board)
         play = gets.chomp.to_i
-        update_position(play, @board.current_player)
+        update_position(play, board.current_player)
     end
 end

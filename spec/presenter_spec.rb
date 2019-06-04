@@ -1,9 +1,16 @@
 require_relative '../app/presenter'
 
 RSpec.describe Presenter do
+    let(:player_1) { Player.new('Player 1') }
+    let(:player_2) { Player.new('Player 2') }
+    let(:board) { Board.new }
+
+    before do
+        allow(board).to receive(:players).and_return([player_1, player_2])
+        board.make_play(5, player_1)
+    end
 
     describe '.request_next_move' do
-        let(:board) { Board.new.tap { |b| b.make_play(5, 1) } }
         let(:subject) { Presenter.request_next_move(board) }
         
         it 'prints the expected to STDOUT' do
@@ -28,18 +35,13 @@ RSpec.describe Presenter do
     end
 
     describe '.congratulate_winner' do
-        let(:board) do 
-            Board.new.tap do |b| 
-                b.make_play(5, 1)
-                b.make_play(3, 2)
-                b.make_play(1, 1)
-                b.make_play(4, 2)
-                b.make_play(9, 1)
-            end
+        before do 
+            board.make_play(3, player_2)
+            board.make_play(1, player_1)
+            board.make_play(4, player_2)
+            board.make_play(9, player_1)
         end
         let(:subject) { Presenter.congratulate_winner(board) }
-        
-        before { allow(board).to receive(:winner).and_return(1) }
 
         it 'prints the expected to STDOUT' do
             expected_output = [
