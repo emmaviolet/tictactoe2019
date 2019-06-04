@@ -25,8 +25,6 @@ class Runner
     end
 
     def play_next_move
-        # should we know about the current player? is it useful for future us?
-
         Presenter.request_next_move(board)
         position = gets.chomp.to_i
         play_position(position, board.current_player)
