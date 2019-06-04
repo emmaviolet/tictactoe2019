@@ -23,22 +23,39 @@ RSpec.describe Runner do
     end
 
     describe '.play' do
-        it 'requests a new move' do
-            expect(Presenter).to receive(:request_next_move).with(board)
-            Runner.play
-        end
+        describe 'when the board is in play' do
+            before { allow(board).to receive(:make_play) }
 
-        it 'updates the board with the inputted position' do
-            expect(board).to receive(:make_play).with(1, player_1)
-            Runner.play
+            it 'requests a new move' do
+                expect(Presenter).to receive(:request_next_move).with(board)
+                Runner.play
+            end
+
+            it 'updates the board with the inputted position' do
+                expect(board).to receive(:make_play).with(1, player_1)
+                Runner.play
+            end
         end
 
         describe 'when the board is won' do
+            before { allow(board).to receive(:make_play) }
+
             it 'congratulates the winner' do
                 expect(board).to receive(:make_play).exactly(5).times
                 expect(Presenter).to receive(:congratulate_winner).with(board)
                 Runner.play
             end
+        end
+
+        describe 'when an invalid move is played' do
+            before do
+                # raise error on first pass
+                allow(board).to receive(:make_play) do |position|
+                    raise 'Bad move' if position == 1
+                end
+            end
+
+            specify { expect { Runner.play }.to output("Bad move\n").to_stdout }
         end
     end
 end

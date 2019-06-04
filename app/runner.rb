@@ -21,7 +21,12 @@ class Runner
     attr_reader :board
 
     def play_position(number, player)
-        board.make_play(number.to_i, player)
+        begin
+            board.make_play(number.to_i, player)
+        rescue RuntimeError => e
+            puts e.message
+            play_next_move
+        end
     end
 
     def play_next_move
