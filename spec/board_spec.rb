@@ -1,5 +1,14 @@
 require_relative '../app/board'
 
+RSpec.describe Play do
+    let(:player) { Player.new('Player 1') }
+
+    describe '.initialize' do
+        specify { expect(Play.new(3, player).position).to eq(3) }
+        specify { expect(Play.new(9, player).player).to eq(player) }
+    end
+end
+
 RSpec.describe Board do
     let(:board) { Board.new }
     let(:player_1) { Player.new('Player 1') }

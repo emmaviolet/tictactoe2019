@@ -1,5 +1,6 @@
-require_relative 'play'
 require_relative 'player'
+
+Play = Struct.new(:position, :player)
 
 class Board
 
