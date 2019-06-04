@@ -20,13 +20,15 @@ class Runner
 
     attr_reader :board
 
-    def update_position(number, player)
+    def play_position(number, player)
         board.make_play(number.to_i, player)
     end
 
     def play_next_move
+        # should we know about the current player? is it useful for future us?
+
         Presenter.request_next_move(board)
-        play = gets.chomp.to_i
-        update_position(play, board.current_player)
+        position = gets.chomp.to_i
+        play_position(position, board.current_player)
     end
 end
